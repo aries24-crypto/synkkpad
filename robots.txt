@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://synkkpad.vercel.app/sitemap.xml
