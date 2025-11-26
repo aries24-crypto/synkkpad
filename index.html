@@ -525,41 +525,7 @@
         }
 
 
-        // --- PASTE CLEANUP (SUPER IMPORTANT) ---
-        function handlePasteCleanup(event) {
-            // 1. Prevent the default rich-text paste behavior
-            event.preventDefault();
-
-            // 2. Get the plain text data from the clipboard
-            const clipboardData = event.clipboardData || window.clipboardData;
-            let pastedText = clipboardData.getData('text/plain');
-
-            // 3. Cleanup logic (weird spacing, line breaks, invisible chars, formatting tags)
-            
-            // a. Replace invisible/non-standard spaces with a regular space
-            // \u200B (Zero-width space), \uFEFF (BOM), \u00A0 (Non-breaking space)
-            pastedText = pastedText.replace(/[\u200B\uFEFF\u00A0]/g, ' ');
-
-            // b. Normalize multiple spaces to a single space
-            pastedText = pastedText.replace(/[ ]+/g, ' ');
-            
-            // c. Normalize line endings (CRLF, CR) to simple newline (\n)
-            pastedText = pastedText.replace(/\r\n|\r/g, '\n');
-
-            // d. Reduce excessive consecutive newlines (3 or more) to a maximum of two
-            pastedText = pastedText.replace(/\n{3,}/g, '\n\n');
-            
-            // e. Trim leading/trailing whitespace
-            pastedText = pastedText.trim();
-            
-            // 4. Insert the cleaned text at the cursor
-            document.execCommand('insertText', false, pastedText);
-            
-            updateCounts();
-            showMessage("Pasted content cleaned up (HTML and garbage characters removed)!", 'success');
-        }
-
-
+       
         // --- RICH TEXT EDITOR CONTROLS ---
 
         // Executable command for Rich Text Editor
@@ -1390,5 +1356,6 @@
 </body>
 
 </html>
+
 
 
